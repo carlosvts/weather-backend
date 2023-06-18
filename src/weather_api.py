@@ -35,6 +35,8 @@ class WeatherAPI():
         response = requests.get(api_endpoint_url, params=_params)
         self.http_issuccess(response)
 
+        return response
+
     def get_forecast(self, q: str, days: str, lang: str | None = None):
         api_endpoint_url = self.set_endpoint("forecast.json")
 
@@ -47,3 +49,5 @@ class WeatherAPI():
 
         response = requests.get(api_endpoint_url, params=_params)
         self.http_issuccess(response)
+
+        return response
