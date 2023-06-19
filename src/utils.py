@@ -42,3 +42,6 @@ def weather_response_options(location):
     print(f"Ok, o que você quer saber sobre {location}?")
     response_options = input(
         "[T] Temperatura, [V] Ventos, [H] Horário, ou [L] Localização?")
+    if response_options in "TVHL":
+        return response_options
+    raise ValueError("Escreva uma das letras entre as chaves")

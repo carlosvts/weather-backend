@@ -1,11 +1,13 @@
 import os
 from pprint import pprint
 from typing import TYPE_CHECKING
+
 if TYPE_CHECKING:
-from requests import Response
+    from requests import Response
+
 import requests
 from dotenv import load_dotenv
-from requests import HTTPError, Response
+from requests import HTTPError
 
 load_dotenv()
 
@@ -20,7 +22,7 @@ class WeatherAPI():
     def set_endpoint(self, api_method: str):
         return self.BASE_URL + api_method
 
-    def http_issuccess(self, response: Response):
+    def http_issuccess(self, response: 'Response'):
         if response.status_code != 200:
             raise HTTPError(
                 "Erro ao conectar-se com a API, status code:",
@@ -56,14 +58,57 @@ class WeatherAPI():
 
         return response
 
-    def weather_general_response(self, response: Response):
-        f"Na cidade de {response.json()['location']['name']} da região de "
-        f"{response.json()['location']['region']} - "
-        f"{response.json()['location']['country']}, "
-        f"a temperatura é de {response.json()['current']['temp_c']}℃, com "
-        "sensação térmica de "
-        f"{response.json()['current']['feelslike_c']}℃ "
-        "Além disso, a velocidade dos ventos na região é de aproximadamente "
-        f"{response.json()['current']['wind_kph']} quilômetros por hora"
-    
-    def weather_specific_response(self, response: Response, response_type):
+    def current_weather_general_response(self, response: 'Response'):
+        """
+        Base general response for the user
+        """
+        return (
+            f"Na cidade de {response.json()['location']['name']} da região de "
+            f"{response.json()['location']['region']} - "
+            f"{response.json()['location']['country']}, "
+            f"a temperatura é de {response.json()['current']['temp_c']}℃, com "
+            "sensação térmica de "
+            f"{response.json()['current']['feelslike_c']}℃ "
+            "Além disso, a cidade está na condição de"
+            f"{response.json()['current']['condition']['text']}"
+            f"a velocidade dos ventos na região é de aproximadamente "
+            f"{response.json()['current']['wind_kph']} quilômetros por hora"
+        )
+
+    def current_weather_specific_response(
+            self, response: 'Response', response_type
+    ):
+        """
+        Show specific responses based on user input, if user didnt specified,
+        show general response
+
+        """
+        if response_type == "T":
+            return (
+                f"A temperatura na cidade "
+                f"de {response.json()['location']['name']} "
+                f"é de {response.json()['current']['temp_c']}℃, com "
+                "sensação térmica de "
+                f"{response.json()['current']['feelslike_c']}℃"
+            )
+        if response_type == "V":
+            return (
+                f"Os ventos na cidade de {response.json()['location']['name']}"
+                " Estão com uma velocidade de"
+                f"{response.json()['current']['wind_kph']} km/h"
+            )
+        if response_type == "H":
+            return (
+                f"{response.json()['location']['localtime']} é o horario da "
+                f"cidade de {response.json()['location']['name']} "
+            )
+        if response_type == "L":
+            return (
+                f"A cidade de {response.json()['location']['name']} "
+                "se localiza na "
+                f"região de {response.json()['location']['region']} - "
+                f"{response.json()['location']['country']}, "
+                f"na latitude de {response.json()['location']['lat']}"
+            )
+
+        return self.current_weather_general_response(response)
