@@ -1,4 +1,3 @@
-
 def possible_options(option: str):
     possible_options = ("1", "clima", "clima atual", "2", "previsão",
                         "previsao", "previsão do tempo",
@@ -33,15 +32,15 @@ def user_input():
     return which_option(option)
 
 
-def current_weather_input_param():
-    param = input("Ok! Informe a localização do local: ")
+def current_weather_localization_input():
+    param = input("Ok! Informe a localização: ")
     return param
 
 
 def weather_response_options(location):
     print(f"Ok, o que você quer saber sobre {location}?")
-    response_options = input(
-        "[T] Temperatura, [V] Ventos, [H] Horário, ou [L] Localização?")
-    if response_options in "TVHL":
-        return response_options
-    raise ValueError("Escreva uma das letras entre as chaves")
+    _response_options = input(
+        "[T] Temperatura, [V] Ventos, [H] Horário, ou [L] Localização? ")
+    if _response_options in "TVHL":
+        return _response_options
+    return None

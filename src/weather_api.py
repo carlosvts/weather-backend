@@ -1,5 +1,4 @@
 import os
-from pprint import pprint
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -40,7 +39,6 @@ class WeatherAPI():
         response = requests.get(api_endpoint_url, params=_params)
         self.http_issuccess(response)
 
-        pprint(response.json())
         return response
 
     def get_forecast(self, q: str, days: str, lang: str | None = "pt"):
@@ -76,39 +74,39 @@ class WeatherAPI():
         )
 
     def current_weather_specific_response(
-            self, response: 'Response', response_type
+            self, response: 'Response', response_option: str | None
     ):
         """
         Show specific responses based on user input, if user didnt specified,
         show general response
-
         """
-        if response_type == "T":
-            return (
+        if response_option is None:
+            return self.current_weather_general_response(response)
+
+        if response_option == "T":
+            return (print(
                 f"A temperatura na cidade "
                 f"de {response.json()['location']['name']} "
-                f"é de {response.json()['current']['temp_c']}℃, com "
+                f"é de {response.json()['current']['temp_c']}℃ com "
                 "sensação térmica de "
                 f"{response.json()['current']['feelslike_c']}℃"
-            )
-        if response_type == "V":
-            return (
+            ))
+        if response_option == "V":
+            return (print(
                 f"Os ventos na cidade de {response.json()['location']['name']}"
                 " Estão com uma velocidade de"
                 f"{response.json()['current']['wind_kph']} km/h"
-            )
-        if response_type == "H":
-            return (
+            ))
+        if response_option == "H":
+            return (print(
                 f"{response.json()['location']['localtime']} é o horario da "
                 f"cidade de {response.json()['location']['name']} "
-            )
-        if response_type == "L":
-            return (
+            ))
+        if response_option == "L":
+            return (print(
                 f"A cidade de {response.json()['location']['name']} "
                 "se localiza na "
                 f"região de {response.json()['location']['region']} - "
                 f"{response.json()['location']['country']}, "
                 f"na latitude de {response.json()['location']['lat']}"
-            )
-
-        return self.current_weather_general_response(response)
+            ))
