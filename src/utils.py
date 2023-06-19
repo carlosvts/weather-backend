@@ -40,7 +40,8 @@ def current_weather_localization_input():
 def weather_response_options(location):
     print(f"Ok, o que você quer saber sobre {location}?")
     _response_options = input(
-        "[T] Temperatura, [V] Ventos, [H] Horário, ou [L] Localização? ")
+        "[T] Temperatura, [V] Ventos, [H] Horário, ou [L] Localização? "
+    ).upper()
     if _response_options in "TVHL":
         return _response_options
     return None

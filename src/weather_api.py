@@ -94,7 +94,7 @@ class WeatherAPI():
         if response_option == "V":
             return (print(
                 f"Os ventos na cidade de {response.json()['location']['name']}"
-                " Estão com uma velocidade de"
+                " Estão com uma velocidade de "
                 f"{response.json()['current']['wind_kph']} km/h"
             ))
         if response_option == "H":
