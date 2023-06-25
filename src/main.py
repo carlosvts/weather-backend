@@ -17,9 +17,9 @@ weatherapi = WeatherAPI(api_key)
 if user_option == "1":
     response = weatherapi.get_current_weather(location)
     response_options = weather_response_options(location)
-    weatherapi.current_weather_specific_response(response, response_options)
+    weatherapi.realtime_specific_response(response, response_options)
 
 if user_option == "2":
     days = days_input()
     response = weatherapi.get_forecast(location, days=days)
-    response_options = forecast_response_options(location)
+    # response_options = forecast_response_options(location)

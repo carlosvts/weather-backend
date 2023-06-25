@@ -16,7 +16,7 @@ def _which_option(option):
 
 def user_input():
     option = input("Welcome to Weather, what do you want to do?"
-                   "Realtime [1] or Forecast [2] ?"
+                   "Realtime [1] or Forecast [2]? "
                    ).lower().strip()
 
     possible_options = ("1", "realtime", "forecast", "2")

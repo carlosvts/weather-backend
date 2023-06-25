@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -51,11 +52,12 @@ class WeatherAPI():
             "key": api_key,
             "days": days,
             "lang": lang,  # Optional
+            "hour": datetime.now().hour,  # Optional
         }
 
         response = requests.get(api_endpoint_url, params=_params)
         self.http_issuccess(response)
-        # pprint(response.text)
+        pprint(response.text)
         return response
 
     def current_weather_general_response(self, response: 'Response'):
@@ -76,7 +78,7 @@ class WeatherAPI():
             f"{response.json()['current']['wind_kph']} kilometers per hour."
         )
 
-    def current_weather_specific_response(
+    def realtime_specific_response(
             self, response: 'Response', response_option: str | None
     ):
         """
@@ -127,5 +129,6 @@ class WeatherAPI():
             ...
         if response_option == "W":
             ...
+
         if response_option == "R":
             ...
