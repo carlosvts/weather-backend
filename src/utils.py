@@ -15,7 +15,7 @@ def _which_option(option):
 
 
 def user_input():
-    option = input("Welcome to Weather, what do you want to do?"
+    option = input("Welcome to Weather, what do you want to do? "
                    "Realtime [1] or Forecast [2]? "
                    ).lower().strip()
 
@@ -29,22 +29,9 @@ def user_input():
 
 def current_weather_localization_input():
     _param = input("Ok! Inform the location: ")
+    if _param.isnumeric():
+        raise ValueError("Please enter a valid City")
     return _param
-
-
-def days_input():
-    """
-    In the api i chosed, if i pass 1 as a param for the day, it will not show
-    the next day, instead it show the current one, so i add this logic of
-    adding one to be more "logical" for the user
-    """
-    _param = input("Forecast for which day ahead of the current one? ")
-    try:
-        _param = int(_param)
-        _param += 1
-        return str(_param)
-    except ValueError as err:
-        print(err, "Please use a number for the day")
 
 
 def hours_input():
@@ -70,4 +57,4 @@ def forecast_response_options(location):
         "[T] Temperature, [W] Winds or [R] Rain chance? ").upper()
     if _response_options in "TWR":
         return _response_options
-    return None
+    raise ValueError("Please type one of the letters inside the brackets")

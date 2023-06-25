@@ -1,4 +1,4 @@
-from utils import (current_weather_localization_input, days_input,
+from utils import (current_weather_localization_input,
                    forecast_response_options, hours_input, user_input,
                    weather_response_options)
 from weather_api import WeatherAPI, api_key
@@ -20,7 +20,7 @@ if user_option == "1":
     weatherapi.realtime_specific_response(response, response_options)
 
 if user_option == "2":
-    day = days_input()
     hour = hours_input()
-    response = weatherapi.get_forecast(location, days=day, hour=hour)
-    # response_options = forecast_response_options(location)
+    response = weatherapi.get_forecast(location, hour=hour)
+    response_option = forecast_response_options(location)
+    weatherapi.forecast_response(response, response_option, hour)
