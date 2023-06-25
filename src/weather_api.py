@@ -115,3 +115,17 @@ class WeatherAPI():
                 f"{response.json()['location']['country']}, "
                 f"at a latitude of {response.json()['location']['lat']}."
             ))
+
+    def forecast_general_response(
+            self, response: 'Response', response_option: str | None):
+        ...
+
+    def forecast_specific_response(
+            self, response: 'Response', response_option: str | None):
+
+        if response_option == "T":
+            ...
+        if response_option == "W":
+            ...
+        if response_option == "R":
+            ...

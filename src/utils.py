@@ -47,9 +47,10 @@ def weather_response_options(location):
     return None
 
 
-def forecastt_response_options(location):
+def forecast_response_options(location):
     print(f"Ok, what do you want to know about {location}?")
-    _response_options = input("[T] Temperature, [W] Winds, ? ").upper()
-    if _response_options in "TWHL":
+    _response_options = input(
+        "[T] Temperature, [W] Winds or [R] Rain chance? ").upper()
+    if _response_options in "TWR":
         return _response_options
     return None
