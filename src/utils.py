@@ -49,6 +49,8 @@ def days_input():
 
 def hours_input():
     _param = input("Which hour of this day? ")
+    if int(_param) not in range(24):
+        raise ValueError("Please, type a hour of the day")
     return _param
 
 
