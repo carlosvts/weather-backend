@@ -44,7 +44,7 @@ class WeatherAPI():
 
         return response
 
-    def get_forecast(self, q: str, days: str, lang: str | None = None):
+    def get_forecast(self, q: str, days, hour, lang: str | None = None):
         api_endpoint_url = self.set_api_endpoint("forecast.json")
 
         _params = {
@@ -52,7 +52,7 @@ class WeatherAPI():
             "key": api_key,
             "days": days,
             "lang": lang,  # Optional
-            "hour": datetime.now().hour,  # Optional
+            "hour": hour,  # Optional
         }
 
         response = requests.get(api_endpoint_url, params=_params)
@@ -89,34 +89,38 @@ class WeatherAPI():
             return self.current_weather_general_response(response)
 
         if response_option == "T":
-            return (print(
+            print(
                 "The temperature in the city of "
                 f"{response.json()['location']['name']} "
                 f"is {response.json()['current']['temp_c']}°C "
                 "with a feels-like temperature of "
                 f"{response.json()['current']['feelslike_c']}°C."
-            ))
+            )
+            return
         if response_option == "W":
-            return (print(
+            print(
                 "The winds in the city of "
                 f"{response.json()['location']['name']} "
                 "are blowing at a speed of "
                 f"{response.json()['current']['wind_kph']} km/h."
-            ))
+            )
+            return
         if response_option == "H":
-            return (print(
+            print(
                 f"{response.json()['location']['localtime']} "
                 "is the local time in "
                 f"the city of {response.json()['location']['name']}."
-            ))
+            )
+            return
         if response_option == "L":
-            return (print(
+            print(
                 f"The city of {response.json()['location']['name']}"
                 "is located in "
                 f"the region of {response.json()['location']['region']} - "
                 f"{response.json()['location']['country']}, "
                 f"at a latitude of {response.json()['location']['lat']}."
-            ))
+            )
+            return
 
     def forecast_general_response(
             self, response: 'Response', response_option: str | None):
@@ -126,7 +130,12 @@ class WeatherAPI():
             self, response: 'Response', response_option: str | None):
 
         if response_option == "T":
-            ...
+            print("The temperature in the city of "
+                  f"{response.json()['location']['name']} "
+                  f"is {response.json()['current']['temp_c']}°C "
+                  "with a feels-like temperature of "
+                  f"{response.json()['current']['feelslike_c']}°C."
+                  )
         if response_option == "W":
             ...
 

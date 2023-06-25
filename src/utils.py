@@ -33,7 +33,22 @@ def current_weather_localization_input():
 
 
 def days_input():
+    """
+    In the api i chosed, if i pass 1 as a param for the day, it will not show
+    the next day, instead it show the current one, so i add this logic of
+    adding one to be more "logical" for the user
+    """
     _param = input("Forecast for which day ahead of the current one? ")
+    try:
+        _param = int(_param)
+        _param += 1
+        return str(_param)
+    except ValueError as err:
+        print(err, "Please use a number for the day")
+
+
+def hours_input():
+    _param = input("Which hour of this day? ")
     return _param
 
 
