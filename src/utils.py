@@ -1,19 +1,12 @@
-def possible_options(option: str):
-    possible_options = ("1", "clima", "clima atual", "2", "previsão",
-                        "previsao", "previsão do tempo",
-                        "previsao do tempo")
-    return option in possible_options
-
-
-def which_option(option):
+def _which_option(option):
     """
-    Parse if user wants weather info(1) or forecast info(2)
-    :param str option: input option gived by the user 
+    Parse if user wants realtime info(1) or forecast info(2)
+    :param str option: input option gived by the user
     """
-    current_weather_options = ("1", "clima", "clima atual")
+    current_weather_options = ("1", "realtime")
 
-    forecast_options = ("2", "previsão", "previsao", "previsão do tempo",
-                        "previsao do tempo")
+    forecast_options = ("2", "forecast")
+
     if option in current_weather_options:
         return "1"
 
@@ -22,26 +15,41 @@ def which_option(option):
 
 
 def user_input():
-    option = input("Bem vindo à WeatherAPI, o que deseja fazer?"
-                   "[1] Clima atual" "[2] Previsão do tempo "
+    option = input("Welcome to Weather, what do you want to do?"
+                   "Realtime [1] or Forecast [2] ?"
                    ).lower().strip()
 
-    if not possible_options(option):
-        raise ValueError("Por favor, digite uma opção válida")
+    possible_options = ("1", "realtime", "forecast", "2")
 
-    return which_option(option)
+    if option not in possible_options:
+        raise ValueError("Please, enter a valid option")
+
+    return _which_option(option)
 
 
 def current_weather_localization_input():
-    param = input("Ok! Informe a localização: ")
-    return param
+    _param = input("Ok! Inform the location: ")
+    return _param
+
+
+def days_input():
+    _param = input("Forecast for which day ahead of the current one? ")
+    return _param
 
 
 def weather_response_options(location):
-    print(f"Ok, o que você quer saber sobre {location}?")
+    print(f"Ok, what do you want to know about {location}?")
     _response_options = input(
-        "[T] Temperatura, [V] Ventos, [H] Horário, ou [L] Localização? "
+        "[T] Temperature, [W] Winds, [H] Time, ou [L] Location? "
     ).upper()
     if _response_options in "TVHL":
+        return _response_options
+    return None
+
+
+def forecastt_response_options(location):
+    print(f"Ok, what do you want to know about {location}?")
+    _response_options = input("[T] Temperature, [W] Winds, ? ").upper()
+    if _response_options in "TWHL":
         return _response_options
     return None

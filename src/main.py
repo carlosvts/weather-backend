@@ -1,4 +1,4 @@
-from utils import (current_weather_localization_input, user_input,
+from utils import (current_weather_localization_input, days_input, user_input,
                    weather_response_options)
 from weather_api import WeatherAPI, api_key
 
@@ -9,10 +9,15 @@ from weather_api import WeatherAPI, api_key
 # retorna as informações com um texto f" formatadin
 
 user_option = user_input()
+location = current_weather_localization_input()
+
+weatherapi = WeatherAPI(api_key)
 
 if user_option == "1":
-    weather = WeatherAPI(api_key)
-    location = current_weather_localization_input()
-    response = weather.get_current_weather(location)
+    response = weatherapi.get_current_weather(location)
     response_options = weather_response_options(location)
-    weather.current_weather_specific_response(response, response_options)
+    weatherapi.current_weather_specific_response(response, response_options)
+
+if user_option == "2":
+    days = days_input()
+    response = weatherapi.get_forecast(location, days=days)
