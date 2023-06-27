@@ -15,6 +15,10 @@ def _which_option(option):
 
 
 def user_input():
+    """
+    Handles the first input for the user and checks if the options choosed
+    by him are the possible ones
+    """
     option = input("Welcome to Weather, what do you want to do? "
                    "Realtime [1] or Forecast [2]? "
                    ).lower().strip()
