@@ -47,7 +47,7 @@ class WeatherAPI():
         _params = {
             "q": q,
             "key": api_key,
-            "days": 2,  # 1(current day) + 1 = next day in this api
+            "days": 2,  # 1(current day) + 1 = next day
             "lang": lang,  # Optional
             "hour": hour,  # Optional
         }
